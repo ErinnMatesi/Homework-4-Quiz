@@ -4,24 +4,36 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homework 4: Javascript Quiz</title>
-
+    <title>Javascript Quiz</title>
+    <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <header id="heading">
-        <section id="viewHighscores">View Highscores!</section>
-        <section id="timer">Time Left</section>
+        <span id="viewHighscores">View Highscores!</span>
+        <section id="timerLocation">Time Left:</section>
     </header>
-    <main id="quiz">
+
+    <section id="welcome">
+        <h2>Welcome! Would you like to test your knowledge in a quiz?</h2>
+        <button>Let's Play</button>
+    </section>
+
+    <section id="quiz">
         <h2 id="question"></h2>
         <button id="button1">Choice1</button>
         <button id="button2">Choice2</button>
         <button id="button3">Choice3</button>
         <button id="button4">Choice4</button>
         <p id="answer">Correct!</p>
-    </main>
+    </section>
+
+    <section id="highScores">
+        <!-- idk what goes here yet -->
+    </section>
+
     <script src="js/questions.js"></script>
     <script src="js/quiz.js"></script>
+    
 </body>
 </html>
