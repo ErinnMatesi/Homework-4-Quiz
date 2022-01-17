@@ -30,16 +30,16 @@ header {
     width: 60%;
     margin-left: auto;
     margin-right: auto;
-    display: none;
+    /* display: none; */
 }
 
 #answer {
-    visibility: hidden;
+    /* visibility: hidden; */
 }
 
 #logScore div {
     text-align: center;
-    visibility: hidden;
+    /* visibility: hidden; */
 }
 
 #highScores {
@@ -50,5 +50,5 @@ header {
     width: 60%;
     margin-left: auto;
     margin-right: auto;
-    visibility: hidden;
+    /* visibility: hidden; */
 }

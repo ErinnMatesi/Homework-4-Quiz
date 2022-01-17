@@ -18,10 +18,10 @@ var welcome = document.querySelector("#welcome");
 // will hold the quiz
 var quiz = document.querySelector("#quiz");
 var question = document.querySelector("#question");
-var button1 = document.querySelector("#button1");
-var button2 = document.querySelector("#button2");
-var button3 = document.querySelector("#button3");
-var button4 = document.querySelector("#button4");
+var choice1 = document.querySelector("#choice1");
+var choice2 = document.querySelector("#choice2");
+var choice3 = document.querySelector("#choice3");
+var choice4 = document.querySelector("#choice4");
 // will need to be hidden until an answer is chosen
 var answer = document.querySelector("#answer");
 // shows highscores, will be hidden until viewHighscores button is pushed
@@ -30,6 +30,8 @@ var highScores = document.querySelector("#highScores");
 var back = document.querySelector("#back");
 var initiateGame = document.querySelector("#initiateGame");
 var logScore = document.querySelector("#logScore");
+
+var correctAnswers = 0;
 
 // will need to start interval but also react to incorrect answers
 var startTimer;
@@ -55,6 +57,7 @@ initiateGame.addEventListener("click", function() {
         timerLocation.textContent = "Seconds Left: " + timeLeft;
         if (timeLeft > 0) {
             timeLeft--;
+            // make quiz visible
             welcome.setAttribute("style", "display: none");
             // this is set to display: none in the css page...how do I override that?
             quiz.setAttribute("style", "display: visible");
@@ -64,8 +67,28 @@ initiateGame.addEventListener("click", function() {
             logScore.setAttribute("style", "display: visible");
         }
     }, 1000);
-    // make quiz visible, and loop through questions
-    // check answers
+    // loop through questions
+    for (var i = 0; i < questions.length; i++) {
+        question.textContent = questions[i];
+        choice1.textContent = questions[i].choices[0];
+        choice2.textContent = questions[i].choices[1];
+        choice3.textContent = questions[i].choices[2];
+        choice4.textContent = questions[i].choices[3];
+        // check answers
+    // need to add an event listener
+    if (question[i].answer === EVENTLISTENER) {
+        correctAnswer++;
+        answer.setAttribute("style", "display: visible");
+        answer.textContent = "correct";
+    } else {
+        timeLeft -=5;
+        answer.setAttribute("style", "display: visible");
+        answer.textContent = "incorrect";
+    }
+    }
+    answer.textContent = "";
+    answer.setAttribute("style", "display: none");
+    // need to clearInterval under a few conditions
 });
 
 
