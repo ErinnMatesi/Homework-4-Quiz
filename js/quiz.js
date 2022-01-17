@@ -14,7 +14,7 @@ var viewHighscores = document.querySelector("#viewHighscores");
 // will need to display the setInterval timer
 var timerLocation = document.querySelector("#timerLocation");
 // what is shown on page load
-var welcome = document.querySelector("welcome");
+var welcome = document.querySelector("#welcome");
 // will hold the quiz
 var quiz = document.querySelector("#quiz");
 var question = document.querySelector("#question");
@@ -31,13 +31,22 @@ var back = document.querySelector("#back");
 var initiateGame = document.querySelector("#initiateGame");
 var logScore = document.querySelector("#logScore");
 
-// will need a function to change highScores to visible
-var showHighscores;
 // will need to start interval but also react to incorrect answers
 var startTimer;
 var timeLeft = 60
 
+// WHY DO THESE NOT WORK IN THE FUNCTIONS BELOW?
+var hideWelcome = welcome.setAttribute("style", "display: none");
+var hideQuiz = quiz.setAttribute("style", "display: none");
+var hideHighScores = highScores.setAttribute("style", "display: none");
+var hideLogScore = logScore.setAttribute("style", "display: none");
+var hideHeading = heading.setAttribute("style", "display: none");
 
+var showWelcome = welcome.setAttribute("style", "display: visible");
+var showQuiz = quiz.setAttribute("style", "display: visible");
+var showHighScores = highScores.setAttribute("style", "display: visible");
+var showLogScore = logScore.setAttribute("style", "display: visible");
+var showHeading = heading.setAttribute("style", "display: visible");
 
 // PLAYING THE GAME
 initiateGame.addEventListener("click", function() {
@@ -46,10 +55,13 @@ initiateGame.addEventListener("click", function() {
         timerLocation.textContent = "Seconds Left: " + timeLeft;
         if (timeLeft > 0) {
             timeLeft--;
+            welcome.setAttribute("style", "display: none");
+            // this is set to display: none in the css page...how do I override that?
+            quiz.setAttribute("style", "display: visible");
         } else {
             // hide quiz and prompt initials for highscore storage
-            quiz.style.visibility = "hidden";
-            logScore.style.visibility = "visible";
+            quiz.setAttribute("style", "display: none");
+            logScore.setAttribute("style", "display: visible");
         }
     }, 1000);
     // make quiz visible, and loop through questions
@@ -58,20 +70,17 @@ initiateGame.addEventListener("click", function() {
 
 
 // HIGHSCORE VIEWING
-
-showHighscores = function() {
-// make welcome hidden, make quiz hidden
-    welcome.style.visibility = "hidden";
-    quiz.style.visibility = "hidden";
-    highScores.style.visibility = "visible";
-    logScore.style.visibility = "hidden";
-};
-
-viewHighscores.addEventListener("click", showHighscores());
+viewHighscores.addEventListener("click", function() {
+    // make welcome, quiz and/or logscore hidden
+        welcome.setAttribute("style", "display: none");
+        quiz.setAttribute("style", "display: none");
+        highScores.setAttribute("style", "display: visible");
+        logScore.setAttribute("style", "display: none");
+    });
 
 back.addEventListener("click", function() {
-    welcome.style.visibility = "visible";
-    quiz.style.visibility = "hidden";
-    highScores.style.visibility = "hidden";
-    logScore.style.visibility = "hidden";
+    welcome.setAttribute("style", "display: visible");
+    quiz.setAttribute("style", "display: none");
+    highScores.setAttribute("style", "display: none");
+    logScore.setAttribute("style", "display: none");
 });

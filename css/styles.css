@@ -22,7 +22,7 @@ header {
     padding: 15px;
 }
 
-#quiz {
+#quiz div {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
@@ -30,14 +30,14 @@ header {
     width: 60%;
     margin-left: auto;
     margin-right: auto;
-    visibility: hidden;
+    display: none;
 }
 
 #answer {
     visibility: hidden;
 }
 
-#logScore {
+#logScore div {
     text-align: center;
     visibility: hidden;
 }
