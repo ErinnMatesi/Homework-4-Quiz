@@ -10,13 +10,13 @@
 </head>
 <body>
     <header id="heading">
-        <span id="viewHighscores">View Highscores!</span>
-        <section id="timerLocation">Time Left:</section>
+        <button id="viewHighscores">View Highscores!</button>
+        <section id="timerLocation"></section>
     </header>
 
     <section id="welcome">
         <h2>Welcome! Would you like to test your knowledge in a quiz?</h2>
-        <button>Let's Play</button>
+        <button id="initiateGame">Let's Play</button>
     </section>
 
     <section id="quiz">
@@ -28,8 +28,17 @@
         <p id="answer">Correct!</p>
     </section>
 
+    <section id="logScore">
+        <!-- should show highscore and have input for initials -->
+        <form>
+            <label for="initials">Initials</label>
+            <input id="initials">
+        </form>
+    </section>
+
     <section id="highScores">
-        <!-- idk what goes here yet -->
+        <!-- idk what goes here yet, needs structure to show high scores and also button for "back" -->
+        <button id="back">Back</button>
     </section>
 
     <script src="js/questions.js"></script>

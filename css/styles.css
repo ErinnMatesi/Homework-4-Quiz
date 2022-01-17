@@ -30,8 +30,25 @@ header {
     width: 60%;
     margin-left: auto;
     margin-right: auto;
+    visibility: hidden;
 }
 
 #answer {
+    visibility: hidden;
+}
+
+#logScore {
+    text-align: center;
+    visibility: hidden;
+}
+
+#highScores {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
     visibility: hidden;
 }
