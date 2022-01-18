@@ -42,6 +42,10 @@ header div {
     padding: 30px;
 }
 
+#score {
+    padding: 15px;
+}
+
 #highScores div {
     display: flex;
     flex-wrap: wrap;

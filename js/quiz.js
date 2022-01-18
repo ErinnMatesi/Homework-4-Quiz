@@ -28,27 +28,29 @@ var initiateGame = document.querySelector("#initiateGame");
 var logScore = document.querySelector("#logScore");
 var scoreList = document.querySelector("#scoreList");
 var score = document.querySelector("#score");
+var inputSubmit = document.querySelector("inputSubmit");
+var initials = document.querySelector("initials");
 
 var index = 0;
 
 var correctAnswers = 0;
+var scoreArray = [];
 
 var startTimer;
-var timeLeft = 60;
+var timeLeft = 50;
 
 // display question and choices based on index
 var displayQuestion = function() {
     question.textContent = questions[index].title;
-    console.log(index);
-        choice1.textContent = questions[index].choices[0];
-        choice2.textContent = questions[index].choices[1];
-        choice3.textContent = questions[index].choices[2];
-        choice4.textContent = questions[index].choices[3];
-        // check answers
-        choice1.addEventListener("click", checkAnswer);
-        choice2.addEventListener("click", checkAnswer);
-        choice3.addEventListener("click", checkAnswer);
-        choice4.addEventListener("click", checkAnswer);
+    choice1.textContent = questions[index].choices[0];
+    choice2.textContent = questions[index].choices[1];
+    choice3.textContent = questions[index].choices[2];
+    choice4.textContent = questions[index].choices[3];
+    // check answers
+    choice1.addEventListener("click", checkAnswer);
+    choice2.addEventListener("click", checkAnswer);
+    choice3.addEventListener("click", checkAnswer);
+    choice4.addEventListener("click", checkAnswer);
 };
 
 // compare content of answer to contact of the choice that is clicked
@@ -69,7 +71,33 @@ var checkAnswer = function(event) {
 
 var endGame = function() {
     logScore.hidden = false;
-}
+    quiz.hidden = true;
+    score.textContent = "Score:" + correctAnswers;
+
+    // collect user initials
+    inputSubmit.addEventListener("click", function(event) {
+        event.preventDefault();
+        if (initials.textContent = "") {
+            alert("Initials cannot be blank");
+            return;
+        }
+
+        // creating an object that holds initials and their score    
+        var inputScore = {
+        initials: initials.value,
+        score: correctAnswers
+        };
+
+        // adds the current initials and score to the array
+        scoreArray.push(inputScore);
+
+        localStorage.setItem("high scores", JSON.stringify(inputScore));
+
+        console.log(scoreArray);
+        console.log(inputScore);
+    });
+    
+};
 
 // PLAYING THE GAME
 initiateGame.addEventListener("click", function() {
@@ -82,9 +110,12 @@ initiateGame.addEventListener("click", function() {
             timeLeft--;
             // make quiz visible
             quiz.hidden = false;
+        // TO DO: fix this so the quiz ends when there are no more questions
+        } else if (index == questions.length-1) {
+            clearInterval(startTimer);
+            endGame();
         } else {
             // hide quiz and prompt initials for highscore storage
-            quiz.hidden = true;
             endGame();
             clearInterval(startTimer);
         };
@@ -93,12 +124,6 @@ initiateGame.addEventListener("click", function() {
     displayQuestion();
     answer.textContent = "";
     answer.hidden = true;
-    // Where TF does this need to go
-    if (index == questions.length-1) {
-        clearInterval(startTimer);
-        endGame();
-    };
-    // need to clearInterval when timeLeft = 0 but also when there are no more questions.
 });
 
 
@@ -110,6 +135,8 @@ viewHighscores.addEventListener("click", function() {
     logScore.hidden = true;
     highScores.hidden = false;
     heading.hidden = true;
+    
+    localStorage.getItem("high scores");
     // scoreList.innerHTML = "";
     // loop through localStorage and create li for each object, append to ol
     });
