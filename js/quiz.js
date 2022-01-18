@@ -38,7 +38,8 @@ var timeLeft = 60;
 
 // display question and choices based on index
 var displayQuestion = function() {
-    question.textContent = JSON.stringify(questions[index].title);
+    question.textContent = questions[index].title;
+    console.log(index);
         choice1.textContent = questions[index].choices[0];
         choice2.textContent = questions[index].choices[1];
         choice3.textContent = questions[index].choices[2];
@@ -85,12 +86,18 @@ initiateGame.addEventListener("click", function() {
             // hide quiz and prompt initials for highscore storage
             quiz.hidden = true;
             endGame();
+            clearInterval(startTimer);
         };
     }, 1000);
     // loop through questions
     displayQuestion();
     answer.textContent = "";
     answer.hidden = true;
+    // Where TF does this need to go
+    if (index == questions.length-1) {
+        clearInterval(startTimer);
+        endGame();
+    };
     // need to clearInterval when timeLeft = 0 but also when there are no more questions.
 });
 
