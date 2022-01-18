@@ -1,109 +1,116 @@
 /*
  * questions.js is loaded in the HTML before quiz.js
- * It creates a global variable called questions that contains starter questions.
- * Take a look at the structure and familiarize yourself with each part
- * then, add some of your own questions!
- * Use this data to populate your quiz questions, choices, and answers.
  */
 console.log(questions);
 
-// will need to become hidden when highscores are being shown
+// contains View Highscores button and timer
 var heading = document.querySelector("#heading");
-// needs to change was shows in quiz section to the high scores
+// shows highscores
 var viewHighscores = document.querySelector("#viewHighscores");
-// will need to display the setInterval timer
+// displays the setInterval timer
 var timerLocation = document.querySelector("#timerLocation");
 // what is shown on page load
 var welcome = document.querySelector("#welcome");
-// will hold the quiz
+// section that shows quiz content
 var quiz = document.querySelector("#quiz");
 var question = document.querySelector("#question");
 var choice1 = document.querySelector("#choice1");
 var choice2 = document.querySelector("#choice2");
 var choice3 = document.querySelector("#choice3");
 var choice4 = document.querySelector("#choice4");
-// will need to be hidden until an answer is chosen
+// is hidden until an answer is chosen
 var answer = document.querySelector("#answer");
-// shows highscores, will be hidden until viewHighscores button is pushed
+// shows highscores, hidden until viewHighscores button is pushed
 var highScores = document.querySelector("#highScores");
-// let button bring you back to welcome message
+// this button brings you back to welcome message
 var back = document.querySelector("#back");
 var initiateGame = document.querySelector("#initiateGame");
 var logScore = document.querySelector("#logScore");
+var scoreList = document.querySelector("#scoreList");
+var score = document.querySelector("#score");
+
+var index = 0;
 
 var correctAnswers = 0;
 
-// will need to start interval but also react to incorrect answers
 var startTimer;
-var timeLeft = 60
+var timeLeft = 60;
 
-// WHY DO THESE NOT WORK IN THE FUNCTIONS BELOW?
-var hideWelcome = welcome.setAttribute("style", "display: none");
-var hideQuiz = quiz.setAttribute("style", "display: none");
-var hideHighScores = highScores.setAttribute("style", "display: none");
-var hideLogScore = logScore.setAttribute("style", "display: none");
-var hideHeading = heading.setAttribute("style", "display: none");
+// display question and choices based on index
+var displayQuestion = function() {
+    question.textContent = JSON.stringify(questions[index].title);
+        choice1.textContent = questions[index].choices[0];
+        choice2.textContent = questions[index].choices[1];
+        choice3.textContent = questions[index].choices[2];
+        choice4.textContent = questions[index].choices[3];
+        // check answers
+        choice1.addEventListener("click", checkAnswer);
+        choice2.addEventListener("click", checkAnswer);
+        choice3.addEventListener("click", checkAnswer);
+        choice4.addEventListener("click", checkAnswer);
+};
 
-var showWelcome = welcome.setAttribute("style", "display: visible");
-var showQuiz = quiz.setAttribute("style", "display: visible");
-var showHighScores = highScores.setAttribute("style", "display: visible");
-var showLogScore = logScore.setAttribute("style", "display: visible");
-var showHeading = heading.setAttribute("style", "display: visible");
+// compare content of answer to contact of the choice that is clicked
+var checkAnswer = function(event) {
+    if (questions[index].answer === event.target.textContent) {
+        correctAnswers++;
+        answer.hidden = false;
+        answer.textContent = "correct";
+        } else {
+        timeLeft -=5;
+        answer.hidden = false;
+        answer.textContent = "incorrect";
+        };
+    index++;
+    console.log(correctAnswers);
+    displayQuestion();
+};
+
+var endGame = function() {
+    logScore.hidden = false;
+}
 
 // PLAYING THE GAME
 initiateGame.addEventListener("click", function() {
-    // will need to start timer
+   welcome.hidden = true; 
+   quiz.hidden = false;
+   // will start timer
     startTimer = setInterval(function() {
         timerLocation.textContent = "Seconds Left: " + timeLeft;
         if (timeLeft > 0) {
             timeLeft--;
             // make quiz visible
-            welcome.setAttribute("style", "display: none");
-            // this is set to display: none in the css page...how do I override that?
-            quiz.setAttribute("style", "display: visible");
+            quiz.hidden = false;
         } else {
             // hide quiz and prompt initials for highscore storage
-            quiz.setAttribute("style", "display: none");
-            logScore.setAttribute("style", "display: visible");
-        }
+            quiz.hidden = true;
+            endGame();
+        };
     }, 1000);
     // loop through questions
-    for (var i = 0; i < questions.length; i++) {
-        question.textContent = questions[i];
-        choice1.textContent = questions[i].choices[0];
-        choice2.textContent = questions[i].choices[1];
-        choice3.textContent = questions[i].choices[2];
-        choice4.textContent = questions[i].choices[3];
-        // check answers
-    // need to add an event listener
-    if (question[i].answer === EVENTLISTENER) {
-        correctAnswer++;
-        answer.setAttribute("style", "display: visible");
-        answer.textContent = "correct";
-    } else {
-        timeLeft -=5;
-        answer.setAttribute("style", "display: visible");
-        answer.textContent = "incorrect";
-    }
-    }
+    displayQuestion();
     answer.textContent = "";
-    answer.setAttribute("style", "display: none");
-    // need to clearInterval under a few conditions
+    answer.hidden = true;
+    // need to clearInterval when timeLeft = 0 but also when there are no more questions.
 });
 
 
 // HIGHSCORE VIEWING
 viewHighscores.addEventListener("click", function() {
     // make welcome, quiz and/or logscore hidden
-        welcome.setAttribute("style", "display: none");
-        quiz.setAttribute("style", "display: none");
-        highScores.setAttribute("style", "display: visible");
-        logScore.setAttribute("style", "display: none");
+    welcome.hidden = true;
+    quiz.hidden = true;
+    logScore.hidden = true;
+    highScores.hidden = false;
+    heading.hidden = true;
+    // scoreList.innerHTML = "";
+    // loop through localStorage and create li for each object, append to ol
     });
 
 back.addEventListener("click", function() {
-    welcome.setAttribute("style", "display: visible");
-    quiz.setAttribute("style", "display: none");
-    highScores.setAttribute("style", "display: none");
-    logScore.setAttribute("style", "display: none");
+    welcome.hidden = false;
+    quiz.hidden = true;
+    highScores.hidden = true;
+    logScore.hidden = true;
 });
+
