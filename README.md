@@ -5,7 +5,7 @@ The quiz features 5 multiple choice questions with a 50 second timer. When an in
 At the end of the game, the user can input their initials to save their highscore (in localStorage) and then view the score in the high scores page.
 
 ## Live Site
-
+https://erinnmatesi.github.io/Homework-4-Quiz/
 
 ---
 Erinn Matesi 2021-2022 UW Fullstack Bootcamp
