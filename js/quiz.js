@@ -51,6 +51,11 @@ var displayQuestion = function() {
     choice2.addEventListener("click", checkAnswer);
     choice3.addEventListener("click", checkAnswer);
     choice4.addEventListener("click", checkAnswer);
+
+    if (index == questions.length-1) {
+        clearInterval(startTimer);
+        endGame();
+    }
 };
 
 // compare content of answer to contact of the choice that is clicked
@@ -110,10 +115,6 @@ initiateGame.addEventListener("click", function() {
             timeLeft--;
             // make quiz visible
             quiz.hidden = false;
-        // TO DO: fix this so the quiz ends when there are no more questions
-        } else if (index == questions.length-1) {
-            clearInterval(startTimer);
-            endGame();
         } else {
             // hide quiz and prompt initials for highscore storage
             endGame();
