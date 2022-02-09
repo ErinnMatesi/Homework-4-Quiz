@@ -28,8 +28,8 @@ var initiateGame = document.querySelector("#initiateGame");
 var logScore = document.querySelector("#logScore");
 var scoreList = document.querySelector("#scoreList");
 var score = document.querySelector("#score");
-var inputSubmit = document.querySelector("inputSubmit");
-var initials = document.querySelector("initials");
+var inputSubmit = document.querySelector("#inputSubmit");
+var initials = document.querySelector("#initials");
 
 var index = 0;
 
@@ -81,6 +81,7 @@ var endGame = function() {
 
     // collect user initials
     inputSubmit.addEventListener("click", function(event) {
+        // WHY IS PREVENTDEFAULT NOT WORKING?
         event.preventDefault();
         if (initials.textContent = "") {
             alert("Initials cannot be blank");
@@ -147,5 +148,6 @@ back.addEventListener("click", function() {
     quiz.hidden = true;
     highScores.hidden = true;
     logScore.hidden = true;
+    heading.hidden = false;
 });
 
