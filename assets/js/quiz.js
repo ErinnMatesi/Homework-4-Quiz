@@ -34,7 +34,6 @@ var initials = document.querySelector("#initials");
 var index = 0;
 
 var correctAnswers = 0;
-var scoreArray = [];
 
 var startTimer;
 var timeLeft = 50;
@@ -81,26 +80,27 @@ var endGame = function() {
 
     // collect user initials
     inputSubmit.addEventListener("click", function(event) {
-        // WHY IS PREVENTDEFAULT NOT WORKING?
         event.preventDefault();
-        if (initials.textContent = "") {
+        if (initials.value === "") {
             alert("Initials cannot be blank");
             return;
-        }
+        };
 
         // creating an object that holds initials and their score    
         var inputScore = {
         initials: initials.value,
         score: correctAnswers
         };
-
+        var scoreArray = JSON.parse(localStorage.getItem("highScores")) || [];
         // adds the current initials and score to the array
         scoreArray.push(inputScore);
 
-        localStorage.setItem("high scores", JSON.stringify(inputScore));
-
+        localStorage.setItem("highScores", JSON.stringify(scoreArray));
+        logScore.hidden = true;
+        welcome.hidden = false;
         console.log(scoreArray);
         console.log(inputScore);
+        location.reload();
     });
     
 };
@@ -109,6 +109,8 @@ var endGame = function() {
 initiateGame.addEventListener("click", function() {
    welcome.hidden = true; 
    quiz.hidden = false;
+   highScores.hidden = true;
+   logScore.hidden = true;
    // will start timer
     startTimer = setInterval(function() {
         timerLocation.textContent = "Seconds Left: " + timeLeft;
@@ -137,11 +139,27 @@ viewHighscores.addEventListener("click", function() {
     logScore.hidden = true;
     highScores.hidden = false;
     heading.hidden = true;
-    
-    localStorage.getItem("high scores");
+    console.log("test");
+    getScores();
     // scoreList.innerHTML = "";
     // loop through localStorage and create li for each object, append to ol
-    });
+});
+
+var printHistory = function(history) {
+    var scoreItem = document.createElement("li");
+    scoreItem.innerText=history.initials + ": " + history.score;
+
+    scoreList.appendChild(scoreItem);
+};
+
+var getScores = function () {
+    var history = JSON.parse(localStorage.getItem("highScores")) || [];
+    console.log(history);
+    scoreList.innerHTML="";
+    for (var i = 0; i < history.length; i++) {
+        printHistory(history[i]);
+    }
+};
 
 back.addEventListener("click", function() {
     welcome.hidden = false;
@@ -149,5 +167,7 @@ back.addEventListener("click", function() {
     highScores.hidden = true;
     logScore.hidden = true;
     heading.hidden = false;
+    console.log("test back");
+    location.reload();
 });
 
