@@ -5,11 +5,14 @@ header div {
 }
 
 #heading {
-    background-color: lightsalmon;
+    background-color: #88527F;
+    color: whitesmoke;
 }
 
 body {
-    background-color: wheat;
+    background-color: #6A8D92;
+    /* color: #4B4E6D; */
+    color: #493548
 }
 
 #viewHighscores {
@@ -67,4 +70,15 @@ body {
     margin-left: auto;
     margin-right: auto;
     padding: 30px;
+}
+
+button {
+    transition-duration: 0.2s;
+    background-color: #9F87AF;
+    color: whitesmoke;
+    margin: 4px;
+}
+
+button:hover {
+    background-color: #80B192;
 }
