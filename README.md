@@ -1,4 +1,4 @@
-Javascript Quiz
+#Javascript Quiz
 
 A javascript-created quiz about javascript!
 The quiz features 5 multiple choice questions with a 50 second timer. When an incorrect answer is chosen, 5 seconds deduct from the time. 
